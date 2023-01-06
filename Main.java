@@ -71,6 +71,15 @@ class Main {
       pq.insert(dstart); //insert first node inot priority queue
 
       // might be missing other variables
+      for(int i = 0; i < size; i++){
+        for(int j = 0; j < size; j++) {
+          System.out.print(graph[i][j]+"|");
+          DNode node = new DNode();
+          dstart.num = i; dstart.prev = i-1; dstart.tdist = Integer.MAX_VALUE;
+          pq.insert(dstart); //insert node into pq
+        }
+        System.out.println();
+      }
 
       boolean dijkgo = true;
       while(dijkgo == true){//algorithm ends when you visit the end node
