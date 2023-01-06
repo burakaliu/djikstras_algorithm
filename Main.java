@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList; //ArrayLists are just handy, yo
 // Need Scanner and java.io.* to read files
 // Need MinHeap.java in the project so that the MinHeap works
+import java.util.LinkedList;
 
 class Main {
   public static void main(String[] args) throws Exception {
@@ -44,6 +45,8 @@ class Main {
       System.out.println();
     }
 
+    //verte
+
     boolean doStuff = true;
     while(doStuff == true){
       Scanner keyboard = new Scanner(System.in);
@@ -69,21 +72,40 @@ class Main {
       DNode dstart = new DNode();
       dstart.num = start; dstart.prev = start; dstart.tdist = 0;
       pq.insert(dstart); //insert first node inot priority queue
-      for (var i = 0; i < size; i ++){
-        DNode dnode = new DNode();
-        dstart.num = start; dstart.prev = start; dstart.tdist = 0;
-      }
       // might be missing other variables
       for(int i = 0; i < size; i++){
         for(int j = 0; j < size; j++) {
-          System.out.print(graph[i][j]+"|");
           DNode node = new DNode();
-          dstart.num = i; dstart.prev = i-1; dstart.tdist = Integer.MAX_VALUE;
-          pq.insert(dstart); //insert node into pq
+          node.num = i; node.prev = i-1; node.tdist = Integer.MAX_VALUE;
+          pq.insert(node); //insert node into pq
         }
-        System.out.println();
       }
 
+      
+      while (pq.peek()!= null){
+        // Algorithm goes here!
+        // 1 Get the next node to visit from the priority queue
+        DNode visit = pq.delete();
+        // NOTE: it's possible to have more than one "copy" of the same node in the priority queue
+        // So you must check that the node you got from the queue is unvisited.
+        for(int i = 0; i < size; i++){
+          for(int j = 0; j < size; j++) {
+            if (graph[visit.num][j] >= 1){
+              //System.out.println(i + " " + j + " have a connection");
+              int tempDistance = visit.tdist + graph[visit.num][j];
+              System.out.println(visit.tdist);
+              System.out.println(graph[visit.num][j]);
+              if (tempDistance < visit.tdist){
+                visit.tdist = tempDistance;
+                visit.prev = j;
+              }
+            }
+          }
+        }
+        //System.out.println("Visiting: " + visit.num);
+      }
+      
+      
       /*
        * for each vertex V in G          //initialization; initial path set to infinite
         path[V] <- infinite
@@ -101,26 +123,10 @@ class Main {
     return path[], previous[]
        */
 
-      for(int i = 0; i < size; i++){
-        for(int j = 0; j < size; j++) {
-          System.out.print(graph[i][j]+"|");
-        }
-        System.out.println();
-      }
-
       boolean dijkgo = true;
       while(dijkgo == true){//algorithm ends when you visit the end node
 
-        // Algorithm goes here!
-
-        //
-
-        // 1 Get the next node to visit from the priority queue
-        DNode visit = pq.delete();
-        // NOTE: it's possible to have more than one "copy" of the same node in the priority queue
-        // So you must check that the node you got from the queue is unvisited.
-
-        System.out.println("Visiting: " + visit.num);
+        
 
       }
 
@@ -139,6 +145,7 @@ class Main {
     int num; // node label
     int prev; // previous node
     int tdist; // tentative distance
+    LinkedList<Integer> aList[];
 
     public int compareTo(Object o) { //compareTo must take a generic Object as a parameter
       // because of java reasons
