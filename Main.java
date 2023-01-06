@@ -46,11 +46,8 @@ class Main {
     }
 
     //vars
-    int[] distances= new int[size];
-    
-
-
-
+    int[] distances = new int[size];
+  
     boolean doStuff = true;
     while(doStuff == true){
       Scanner keyboard = new Scanner(System.in);
@@ -77,13 +74,17 @@ class Main {
       dstart.num = start; dstart.prev = start; dstart.tdist = 0;
       pq.insert(dstart); //insert first node inot priority queue
       // might be missing other variables
-      for(int i = 0; i < size; i++){
-        for(int j = 0; j < size; j++) {
-          DNode node = new DNode();
-          node.num = i; node.prev = i-1; node.tdist = Integer.MAX_VALUE;
-          pq.insert(node); //insert node into pq
-        }
+
+      //MIGHT NOT NEED THIS PART
+      /*
+       * for(int i = 0; i < size; i++){
+        DNode node = new DNode();
+        node.num = i; node.prev = i; node.tdist = Integer.MAX_VALUE;
+        pq.insert(node); //insert node into pq
+        distances[i] = Integer.MAX_VALUE;
       }
+       */
+      
 
       
       while (pq.peek()!= null){
@@ -99,17 +100,18 @@ class Main {
               int tempDistance = visit.tdist + graph[visit.num][j];
               System.out.println(visit.tdist);
               System.out.println(graph[visit.num][j]);
-              if (tempDistance < visit.tdist){
-                visit.tdist = tempDistance;
+              if (tempDistance < distances[j]){
+                distances[j] = tempDistance;
                 visit.prev = j;
+                DNode node = new DNode();
+                node.num = j; node.prev = visit.num; node.tdist = tempDistance;
+                pq.insert(node); //insert node into pq
               }
             }
           }
         }
         //System.out.println("Visiting: " + visit.num);
       }
-      
-      
       /*
        * for each vertex V in G          //initialization; initial path set to infinite
         path[V] <- infinite
@@ -126,14 +128,6 @@ class Main {
                 previous[V] <- U
     return path[], previous[]
        */
-
-      boolean dijkgo = true;
-      while(dijkgo == true){//algorithm ends when you visit the end node
-
-        
-
-      }
-
 
       // print out results here!
 
