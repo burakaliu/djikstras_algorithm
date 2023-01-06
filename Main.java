@@ -69,13 +69,42 @@ class Main {
       DNode dstart = new DNode();
       dstart.num = start; dstart.prev = start; dstart.tdist = 0;
       pq.insert(dstart); //insert first node inot priority queue
-
+      for (var i = 0; i < size; i ++){
+        DNode dnode = new DNode();
+        dstart.num = start; dstart.prev = start; dstart.tdist = 0;
+      }
       // might be missing other variables
+
+      /*
+       * for each vertex V in G          //initialization; initial path set to infinite
+        path[V] <- infinite
+        previous[V] <- NULL
+        If V != S, add V to Priority Queue PQueue
+    path [S] <- 0
+     
+    while PQueue IS NOT EMPTY
+        U <- Extract MIN from PQueue
+        for each unvisited adjacent_node  V of U
+            tempDistance <- path [U] + edge_weight(U, V)
+            if tempDistance < path [V]
+                path [V] <- tempDistance
+                previous[V] <- U
+    return path[], previous[]
+       */
+
+      for(int i = 0; i < size; i++){
+        for(int j = 0; j < size; j++) {
+          System.out.print(graph[i][j]+"|");
+        }
+        System.out.println();
+      }
 
       boolean dijkgo = true;
       while(dijkgo == true){//algorithm ends when you visit the end node
 
         // Algorithm goes here!
+
+        //
 
         // 1 Get the next node to visit from the priority queue
         DNode visit = pq.delete();
