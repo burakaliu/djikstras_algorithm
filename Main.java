@@ -45,7 +45,11 @@ class Main {
       System.out.println();
     }
 
-    //verte
+    //vars
+    int[] distances= new int[size];
+    
+
+
 
     boolean doStuff = true;
     while(doStuff == true){
