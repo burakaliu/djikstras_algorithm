@@ -47,6 +47,7 @@ class Main {
 
     //vars
     int[] distances = new int[size];
+    Integer[] prev = new Integer[size];
   
     boolean doStuff = true;
     while(doStuff == true){
@@ -72,19 +73,19 @@ class Main {
 
       DNode dstart = new DNode();
       dstart.num = start; dstart.prev = start; dstart.tdist = 0;
-      distances[0] = 0;
       pq.insert(dstart); //insert first node inot priority queue
       // might be missing other variables
 
       //MIGHT NOT NEED THIS PART
-      
-      for(int i = 0; i < size-1; i++){
+      System.out.println(size);
+      for(int i = 1; i < size; i++){
         DNode node = new DNode();
-        node.num = i; node.prev = i; node.tdist = Integer.MAX_VALUE;
+        node.num = i; node.tdist = Integer.MAX_VALUE; //node.prev = null; 
         pq.insert(node); //insert node into pq
         distances[i] = Integer.MAX_VALUE;
+        prev[i] = null;
       }
-       
+      distances[start] = 0;
       
 
       
@@ -94,13 +95,11 @@ class Main {
         DNode visit = pq.delete();
         // NOTE: it's possible to have more than one "copy" of the same node in the priority queue
         // So you must check that the node you got from the queue is unvisited.
-        for(int i = 0; i < size; i++){
+        //for(int i = 0; i < size; i++){
           for(int j = 0; j < size; j++) {
-            if (graph[visit.num][j] >= 1){
+            if (graph[visit.num][j] != -1){
               //System.out.println(i + " " + j + " have a connection");
-              int tempDistance = visit.tdist + graph[visit.num][j];
-              System.out.println(visit.tdist);
-              System.out.println(graph[visit.num][j]);
+              int tempDistance = distances[visit.num] + graph[visit.num][j];
               if (tempDistance < distances[j]){
                 distances[j] = tempDistance;
                 visit.prev = j;
@@ -110,9 +109,10 @@ class Main {
               }
             }
           }
-        }
-        //System.out.println("Visiting: " + visit.num);
+        //}
+        System.out.println("Visiting: " + visit.num);
       }
+
       /*
        * for each vertex V in G          //initialization; initial path set to infinite
         path[V] <- infinite
@@ -140,7 +140,7 @@ class Main {
   // Our priority-queue has to store both the node number, the previous node, and 
   // the tentative distance - tentative distance is what represents the priority
   // and should be what determines placement in the MinHeap
-  static class DNode implements Comparable {// needs to implement Comparable to work with MinHeap
+  public static class DNode implements Comparable {// needs to implement Comparable to work with MinHeap
     int num; // node label
     int prev; // previous node
     int tdist; // tentative distance
