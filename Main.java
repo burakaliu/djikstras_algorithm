@@ -72,18 +72,19 @@ class Main {
 
       DNode dstart = new DNode();
       dstart.num = start; dstart.prev = start; dstart.tdist = 0;
+      distances[0] = 0;
       pq.insert(dstart); //insert first node inot priority queue
       // might be missing other variables
 
       //MIGHT NOT NEED THIS PART
-      /*
-       * for(int i = 0; i < size; i++){
+      
+      for(int i = 0; i < size-1; i++){
         DNode node = new DNode();
         node.num = i; node.prev = i; node.tdist = Integer.MAX_VALUE;
         pq.insert(node); //insert node into pq
         distances[i] = Integer.MAX_VALUE;
       }
-       */
+       
       
 
       
