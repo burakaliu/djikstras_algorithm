@@ -80,15 +80,13 @@ class Main {
 
       //priority queue
       MinHeap<DNode> pq = new MinHeap<DNode>(); //read about DNode at bottom of file!
-      ArrayList<DNode> visited = new ArrayList<DNode>();//list of visited nodes
 
       DNode dstart = new DNode();
       dstart.num = start; dstart.prev = start; dstart.tdist = 0;
       pq.insert(dstart); //insert first node inot priority queue
       // might be missing other variables
 
-      //MIGHT NOT NEED THIS PART
-      System.out.println(size);
+      //set up all the nodes adn their values
       for(int i = 0; i < size; i++){
         DNode node = new DNode();
         node.num = i; node.tdist = Integer.MAX_VALUE; //node.prev = null; 
@@ -96,7 +94,6 @@ class Main {
         distances[i] = Integer.MAX_VALUE;
         prev[i] = null;
         visitedNodes[i] = false;
-        System.out.println("inserted node " + i + " with distance " + distances[i] + " and prev " + prev[i] + " and visited " + visitedNodes[i]);
       }
       distances[start] = 0;
       
@@ -124,27 +121,12 @@ class Main {
           }
       }
       for (int i = 0; i < size; i++){
-        System.out.println("Node " + i + " has distance " + distances[i] + " and prev " + prev[i]);
+        System.out.println("Node " + i + " has distance " + distances[i] + " and previous " + prev[i]);
       }
       System.out.println("Destination has a distance of " + distances[end]);
-      /*
-       * for each vertex V in G          //initialization; initial path set to infinite
-        path[V] <- infinite
-        previous[V] <- NULL
-        If V != S, add V to Priority Queue PQueue
-    path [S] <- 0
-     
-    while PQueue IS NOT EMPTY
-        U <- Extract MIN from PQueue
-        for each unvisited adjacent_node  V of U
-            tempDistance <- path [U] + edge_weight(U, V)
-            if tempDistance < path [V]
-                path [V] <- tempDistance
-                previous[V] <- U
-    return path[], previous[]
-       */
 
       // print out results here!
+      //place all the previous nodes in an arraylist so that they can be reversed into the correct order
       int num = end;
       ArrayList<Integer> finalprevs = new ArrayList<Integer>();
       System.out.print(num + "-> ");
@@ -157,10 +139,9 @@ class Main {
           break;
         }
       }
-
+      //reverse the previous nodes so that they are in the correct order
       Collections.reverse(finalprevs);
       System.out.println(" ");
-
       num = end;
       System.out.print(finalprevs.remove(0) + "-> ");
       while (true){
@@ -171,11 +152,8 @@ class Main {
         }
         System.out.print(" -> ");
       }
-
       System.out.println(" ");
-
     }
-
   }
 
   // Our priority-queue has to store both the node number, the previous node, and 
