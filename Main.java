@@ -86,7 +86,7 @@ class Main {
         distances[i] = Integer.MAX_VALUE;
         prev[i] = null;
         visitedNodes[i] = false;
-        System.out.println("inserted mode " + i + " with distance " + distances[i] + " and prev " + prev[i] + " and visited " + visitedNodes[i]);
+        System.out.println("inserted node " + i + " with distance " + distances[i] + " and prev " + prev[i] + " and visited " + visitedNodes[i]);
       }
       distances[start] = 0;
       
@@ -98,14 +98,12 @@ class Main {
         DNode visit = pq.delete();
         // NOTE: it's possible to have more than one "copy" of the same node in the priority queue
         // So you must check that the node you got from the queue is unvisited.
-        //for(int i = 0; i < size; i++){
           for(int j = 0; j < size; j++) {
             if (graph[visit.num][j] != -1){
-              //System.out.println(i + " " + j + " have a connection");
               int tempDistance = distances[visit.num] + graph[visit.num][j];
               if (tempDistance < distances[j]){
                 distances[j] = tempDistance;
-                prev[visit.num] = j;
+                prev[j] = visit.num;
                 visitedNodes[visit.num] = true;
                 visit.prev = j;
                 DNode node = new DNode();
@@ -114,13 +112,11 @@ class Main {
               }
             }
           }
-        //}
-        System.out.println("Visiting: " + visit.num);
       }
       for (int i = 0; i < size; i++){
         System.out.println("Node " + i + " has distance " + distances[i] + " and prev " + prev[i]);
       }
-      System.out.println(distances[end]);
+      System.out.println("Destination has a distance of " + distances[end]);
       /*
        * for each vertex V in G          //initialization; initial path set to infinite
         path[V] <- infinite
