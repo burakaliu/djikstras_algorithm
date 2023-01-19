@@ -78,12 +78,13 @@ class Main {
 
       //MIGHT NOT NEED THIS PART
       System.out.println(size);
-      for(int i = 1; i < size; i++){
+      for(int i = 0; i < size; i++){
         DNode node = new DNode();
         node.num = i; node.tdist = Integer.MAX_VALUE; //node.prev = null; 
         pq.insert(node); //insert node into pq
         distances[i] = Integer.MAX_VALUE;
         prev[i] = null;
+        System.out.println("inserted node " + i + " with distance " + distances[i] + " and prev " + prev[i]);
       }
       distances[start] = 0;
       
@@ -112,7 +113,7 @@ class Main {
         //}
         System.out.println("Visiting: " + visit.num);
       }
-
+      System.out.println(distances[end]);
       /*
        * for each vertex V in G          //initialization; initial path set to infinite
         path[V] <- infinite
