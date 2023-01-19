@@ -5,6 +5,7 @@ Christopher Kramer
 import java.util.Scanner;
 import java.io.*;
 import java.util.ArrayList; //ArrayLists are just handy, yo
+import java.util.Collections; //for sorting
 // Need Scanner and java.io.* to read files
 // Need MinHeap.java in the project so that the MinHeap works
 import java.util.LinkedList;
@@ -53,8 +54,17 @@ class Main {
     boolean doStuff = true;
     while(doStuff == true){
       Scanner keyboard = new Scanner(System.in);
-      System.out.println("Which node to start at?");
-      int start = keyboard.nextInt();
+      System.out.println("Which node to start at? (or type quit to exit)");
+      int start = 0;
+      try {
+        start = keyboard.nextInt();
+      } catch (Exception e) {
+        // TODO: handle exception
+        System.out.println("Goodbye!");
+        doStuff = false;
+        System.exit(0);
+      }
+      
       if (start < 0 || start >= size) {
         System.out.println("Pick a valid node");
         continue; // continue tells java to immediately start the next "round" of the loop
@@ -135,7 +145,34 @@ class Main {
        */
 
       // print out results here!
+      int num = end;
+      ArrayList<Integer> finalprevs = new ArrayList<Integer>();
+      System.out.print(num + "-> ");
+      finalprevs.add(num);
+      while (true){
+        num = prev[num];
+        System.out.print(num + "-> ");
+        finalprevs.add(num);
+        if (prev[num] == null){
+          break;
+        }
+      }
 
+      Collections.reverse(finalprevs);
+      System.out.println(" ");
+
+      num = end;
+      System.out.print(finalprevs.remove(0) + "-> ");
+      while (true){
+        num = prev[num];
+        System.out.print(finalprevs.remove(0));
+        if (prev[num] == null){
+          break;
+        }
+        System.out.print(" -> ");
+      }
+
+      System.out.println(" ");
 
     }
 
