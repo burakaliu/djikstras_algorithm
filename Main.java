@@ -48,6 +48,7 @@ class Main {
     //vars
     int[] distances = new int[size];
     Integer[] prev = new Integer[size];
+    boolean[] visitedNodes = new boolean[size];
   
     boolean doStuff = true;
     while(doStuff == true){
@@ -84,7 +85,8 @@ class Main {
         pq.insert(node); //insert node into pq
         distances[i] = Integer.MAX_VALUE;
         prev[i] = null;
-        System.out.println("inserted node " + i + " with distance " + distances[i] + " and prev " + prev[i]);
+        visitedNodes[i] = false;
+        System.out.println("inserted mode " + i + " with distance " + distances[i] + " and prev " + prev[i] + " and visited " + visitedNodes[i]);
       }
       distances[start] = 0;
       
@@ -103,6 +105,8 @@ class Main {
               int tempDistance = distances[visit.num] + graph[visit.num][j];
               if (tempDistance < distances[j]){
                 distances[j] = tempDistance;
+                prev[visit.num] = j;
+                visitedNodes[visit.num] = true;
                 visit.prev = j;
                 DNode node = new DNode();
                 node.num = j; node.prev = visit.num; node.tdist = tempDistance;
@@ -112,6 +116,9 @@ class Main {
           }
         //}
         System.out.println("Visiting: " + visit.num);
+      }
+      for (int i = 0; i < size; i++){
+        System.out.println("Node " + i + " has distance " + distances[i] + " and prev " + prev[i]);
       }
       System.out.println(distances[end]);
       /*
