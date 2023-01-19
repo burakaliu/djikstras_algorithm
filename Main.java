@@ -127,13 +127,12 @@ class Main {
 
       // print out results here!
       //place all the previous nodes in an arraylist so that they can be reversed into the correct order
+      System.out.println("The path is: ");
       int num = end;
       ArrayList<Integer> finalprevs = new ArrayList<Integer>();
-      System.out.print(num + "-> ");
       finalprevs.add(num);
       while (true){
         num = prev[num];
-        System.out.print(num + "-> ");
         finalprevs.add(num);
         if (prev[num] == null){
           break;
@@ -141,7 +140,6 @@ class Main {
       }
       //reverse the previous nodes so that they are in the correct order
       Collections.reverse(finalprevs);
-      System.out.println(" ");
       num = end;
       System.out.print(finalprevs.remove(0) + "-> ");
       while (true){
@@ -152,7 +150,7 @@ class Main {
         }
         System.out.print(" -> ");
       }
-      System.out.println(" ");
+      System.out.println(" \n");
     }
   }
 
